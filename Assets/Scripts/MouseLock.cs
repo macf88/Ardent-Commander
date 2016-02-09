@@ -5,8 +5,9 @@ public class MouseLock : MonoBehaviour {
 
 
 	void Start() {
-		
-	}
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 	void DidLockCursor() {
 		Debug.Log("Locking cursor");
 
@@ -16,18 +17,22 @@ public class MouseLock : MonoBehaviour {
 
 	}
 	void OnMouseDown() {
-		Screen.lockCursor = true;
+		Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 	}
 	private bool wasLocked = false;
 	void Update() {
-		if (Input.GetKeyDown("escape"))
-			Screen.lockCursor = false;
+        if (Input.GetKeyDown("escape"))
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
-		if (!Screen.lockCursor && wasLocked) {
+		if (!Cursor.visible && wasLocked) {
 			wasLocked = false;
 			DidUnlockCursor();
 		} else
-			if (Screen.lockCursor && !wasLocked) {
+			if (Cursor.visible && !wasLocked) {
 				wasLocked = true;
 				DidLockCursor();
 			}
