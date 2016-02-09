@@ -17,6 +17,8 @@ public class FPSController : MonoBehaviour {
         [HideInInspector]
         public float CurrentTargetSpeed = 8f;
 
+        private bool m_Running;
+
         public void UpdateDesiredTargetSpeed(Vector2 input)
         {
             if (input == Vector2.zero) return;
@@ -36,6 +38,19 @@ public class FPSController : MonoBehaviour {
                 //handled last as if strafing and moving forward at the same time forwards speed should take precedence
                 CurrentTargetSpeed = ForwardSpeed;
             }
+            if (Input.GetKey(RunKey))
+            {
+                CurrentTargetSpeed *= RunMultiplier;
+                m_Running = true;
+            }
+            else
+            {
+                m_Running = false;
+            }
+        }
+        public bool Running
+        {
+            get { return m_Running; }
         }
     }
     [Serializable]
