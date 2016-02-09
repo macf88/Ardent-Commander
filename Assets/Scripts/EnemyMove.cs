@@ -25,7 +25,6 @@ public class EnemyMove : MonoBehaviour {
             {
                 if (allPlayerAllies.Length == 1)
                 {
-                    Debug.Log("One ally");
                     closestPlayerAlly = ally;
                 }
                 else
@@ -33,7 +32,6 @@ public class EnemyMove : MonoBehaviour {
                     float dist = Vector3.Distance(ally.transform.position, transform.position);
                     if (dist < closestAllyDistance)
                     {
-                        Debug.Log("New closest ally");
                         closestPlayerAlly = ally;
                         closestAllyDistance = dist;
                     }
