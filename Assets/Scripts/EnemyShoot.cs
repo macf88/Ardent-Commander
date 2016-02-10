@@ -13,7 +13,7 @@ public class EnemyShoot : MonoBehaviour
     public string target;
 
 
-    GameObject [] AllPlayerAllies;
+    GameObject [] allPlayerAllies;
     GameObject closestPlayerAlly;
     float closestAllyDistance = 1000;
     float distance;
@@ -34,25 +34,25 @@ public class EnemyShoot : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        AllPlayerAllies = GameObject.FindGameObjectsWithTag("Friendly");
-        if (AllPlayerAllies.Length > 0)
+        allPlayerAllies = GameObject.FindGameObjectsWithTag("Friendly");
+        if (allPlayerAllies.Length > 0)
         {
-            foreach (GameObject Ally in AllPlayerAllies)
+            foreach (GameObject ally in allPlayerAllies)
             {
                 if (closestPlayerAlly == null)
                 {
                     closestAllyDistance = 1000;
                 }
-                if (AllPlayerAllies.Length == 1)
+                if (allPlayerAllies.Length == 1)
                 {
-                    closestPlayerAlly = Ally;
+                    closestPlayerAlly = ally;
                 }
                 else
                 {
-                    float dist = Vector3.Distance(Ally.transform.position, transform.position);
+                    float dist = Vector3.Distance(ally.transform.position, transform.position);
                     if (dist < closestAllyDistance && dist < 100f)
                     {
-                        closestPlayerAlly = Ally;
+                        closestPlayerAlly = ally;
                         closestAllyDistance = dist;
                     }
                 }

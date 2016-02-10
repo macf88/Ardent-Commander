@@ -23,6 +23,10 @@ public class EnemyMove : MonoBehaviour {
         {
             foreach (GameObject ally in allPlayerAllies)
             {
+                if (closestPlayerAlly == null)
+                {
+                    closestAllyDistance = 1000;
+                }
                 if (allPlayerAllies.Length == 1)
                 {
                     closestPlayerAlly = ally;

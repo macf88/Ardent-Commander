@@ -51,11 +51,11 @@ public class Shoot : MonoBehaviour {
 		{
 			Fire ();
 		}
-        else if(Input.GetKey(KeyCode.Mouse0) && grappleButtonHeld == true)
-        {
-            grappleActive = true;
-            grapplePoint = hit.point;
-        }
+        //else if(Input.GetKey(KeyCode.Mouse0) && grappleButtonHeld == true)
+        //{
+        //    grappleActive = true;
+        //    grapplePoint = hit.point;
+        //}
 
         if (grappleActive == true)
         {
