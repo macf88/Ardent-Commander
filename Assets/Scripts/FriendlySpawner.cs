@@ -3,8 +3,9 @@ using System.Collections;
 
 public class FriendlySpawner : MonoBehaviour {
 
+    public bool spawnerActive = true;
     public GameObject friendly;
-    public float spawnTime = 20;
+    public float spawnTime = 15;
 
     int randomFriendly;
     float timer = 2.5f;
@@ -19,7 +20,7 @@ public class FriendlySpawner : MonoBehaviour {
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= spawnTime)
+        if (timer >= spawnTime && spawnerActive == true)
         {
             SpawnEnemy();
         }

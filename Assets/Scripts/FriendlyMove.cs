@@ -8,6 +8,7 @@ public class FriendlyMove : MonoBehaviour {
     GameObject closestEnemy;
     float closestEnemyDistance = 1000;
     NavMeshAgent mesh;
+    bool alreadySet;
 
     // Use this for initialization
     void Start()
@@ -50,9 +51,10 @@ public class FriendlyMove : MonoBehaviour {
         {
             if (Vector3.Distance(transform.position, closestEnemy.transform.position) <= stoppingDistance)
             {
-                mesh.SetDestination(transform.position);
+                mesh.enabled = false;
             }
             else {
+                mesh.enabled = true;
                 mesh.SetDestination(closestEnemy.transform.position);
             }
         }

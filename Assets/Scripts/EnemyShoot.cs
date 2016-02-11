@@ -34,6 +34,16 @@ public class EnemyShoot : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        if (closestPlayerAlly != null)
+        {
+            if (closestPlayerAlly.GetComponent<Friendly>() == true)
+            {
+                if (closestPlayerAlly.GetComponent<Friendly>().health <= 0)
+                {
+                    closestPlayerAlly = null;
+                }
+            }
+        }
         allPlayerAllies = GameObject.FindGameObjectsWithTag("Friendly");
         if (allPlayerAllies.Length > 0)
         {

@@ -9,6 +9,7 @@ public class EnemyMove : MonoBehaviour {
     GameObject closestPlayerAlly;
     float closestAllyDistance = 1000;
     NavMeshAgent mesh;
+    bool alreadySet;
 
 	// Use this for initialization
 	void Start () {
@@ -47,10 +48,11 @@ public class EnemyMove : MonoBehaviour {
         {
             if (Vector3.Distance(transform.position, closestPlayerAlly.transform.position) <= stoppingDistance)
             {
-                mesh.SetDestination(transform.position);
-            }
-            else {
+                mesh.enabled = false;
+            }else {
+                mesh.enabled = true;
                 mesh.SetDestination(closestPlayerAlly.transform.position);
+
             }
         }
 	}

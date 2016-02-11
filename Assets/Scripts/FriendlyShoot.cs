@@ -31,7 +31,7 @@ public class FriendlyShoot : MonoBehaviour {
 	void Update () {
         if (closestEnemy != null)
         {
-            if (closestEnemy.GetComponent<Enemy>().health >= 0)
+            if (closestEnemy.GetComponent<Enemy>().health <= 0)
             {
                 closestEnemy = null;
             }

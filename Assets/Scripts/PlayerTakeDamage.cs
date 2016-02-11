@@ -5,10 +5,12 @@ public class PlayerTakeDamage : MonoBehaviour {
 
 	public int health = 300;
 	private Rigidbody rigidBody;
-
-	// Use this for initialization
-	void Start () {
-		rigidBody = GetComponent<Rigidbody> ();
+    Shield shield;
+    // Use this for initialization
+    void Start()
+    {
+        shield = gameObject.GetComponentInChildren<Shield>();
+        rigidBody = GetComponent<Rigidbody> ();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,11 @@ public class PlayerTakeDamage : MonoBehaviour {
 	}
 	void TakeDamage(int damage)
 	{
-		print ("Player took damage!");
+        if (shield.shieldActive == true)
+        {
+            shield.ShieldTakeDamage(damage);
+        }
+        print ("Player took damage!");
 		health = health - damage;
 		print (health);
 	}

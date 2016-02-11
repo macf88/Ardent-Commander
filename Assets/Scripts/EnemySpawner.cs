@@ -3,8 +3,9 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 
+    public bool spawnerActive = true;
     public GameObject enemy;
-    public float spawnTime = 2;
+    public float spawnTime = 5;
 
     int randomEnemy;
     float timer = 2.5f;
@@ -17,7 +18,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
-        if (timer >= spawnTime)
+        if (timer >= spawnTime && spawnerActive == true)
         {
             SpawnEnemy();
         }
@@ -29,7 +30,6 @@ public class EnemySpawner : MonoBehaviour {
         switch (randomEnemy)
         {
             case 1:
-                Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
