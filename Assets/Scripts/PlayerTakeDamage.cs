@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerTakeDamage : MonoBehaviour {
 
 	public int health = 300;
-	private Rigidbody rigidBody;
+    public Slider healthSlider;
+    public Slider shieldSlider;
+
+	Rigidbody rigidBody;
     Shield shield;
+    int shieldHealth;
     // Use this for initialization
     void Start()
     {
@@ -25,10 +30,15 @@ public class PlayerTakeDamage : MonoBehaviour {
 	{
         if (shield.shieldActive == true)
         {
-            shield.ShieldTakeDamage(damage);
+            shieldHealth = shield.ShieldTakeDamage(damage, true);
         }
-        print ("Player took damage!");
-		health = health - damage;
-		print (health);
+        else
+        {
+            print("Player took damage!");
+            health = health - damage;
+            print(health);
+        }
+        healthSlider.value = health;
+        shieldSlider.value = shieldHealth;
 	}
 }

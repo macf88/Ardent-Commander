@@ -58,5 +58,9 @@ public class FriendlyMove : MonoBehaviour {
                 mesh.SetDestination(closestEnemy.transform.position);
             }
         }
+        else
+        {
+            mesh.enabled = false;
+        }
     }
 }

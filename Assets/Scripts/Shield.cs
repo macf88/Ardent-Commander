@@ -40,7 +40,6 @@ public class Shield : MonoBehaviour {
         if(shieldHealth <= 0)
         {
             shieldActive = false;
-            Destroy(gameObject);
         }
         if (fade == true)
         {
@@ -72,6 +71,16 @@ public class Shield : MonoBehaviour {
         notInCombat = false;
         timer = 0;
         shieldHealth -= damage;
+    }
+    public int ShieldTakeDamage(int damage, bool happiness)
+    {
+        fade = true;
+        shieldRenderer.material = shieldOn;
+        colorLerp = 1.0f;
+        notInCombat = false;
+        timer = 0;
+        shieldHealth -= damage;
+        return shieldHealth;
     }
     void ShieldRecharge()
     {
