@@ -18,4 +18,8 @@ public class KickBack : MonoBehaviour {
     {
         rifleAnim.SetTrigger("Fire");
     }
+    public void ReloadAnimation()
+    {
+        rifleAnim.SetTrigger("Reload");
+    }
 }

@@ -9,8 +9,10 @@ public class Shoot : MonoBehaviour {
 	public float range = 100f;                      // The distance the gun can fire.
     public float grappleBuffer;
     public GameObject Model;
+    public int ammo = 20;
     
     KickBack kickBack;
+    bool reloading;
     Grapple grappleScript;
     RaycastHit hit;
     bool firingEffectsActive;
@@ -55,10 +57,18 @@ public class Shoot : MonoBehaviour {
             grappleButtonHeld = false;
         }
 
-		if (Input.GetKey (KeyCode.Mouse0) && timer >= timeBetweenBullets && grappleButtonHeld == false) 
+		if (Input.GetKey (KeyCode.Mouse0) && timer >= timeBetweenBullets && grappleButtonHeld == false && ammo > 0 && reloading == false) 
 		{
 			Fire ();
 		}
+        else if (ammo <= 0)
+        {
+            ReloadAnimation();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadAnimation();
+        }
         //else if(Input.GetKey(KeyCode.Mouse0) && grappleButtonHeld == true)
         //{
         //    grappleActive = true;
@@ -163,11 +173,26 @@ public class Shoot : MonoBehaviour {
 		{
 			gunLine.SetPosition (1, ray.origin + ray.direction * range);
 		}
+        ammo--;
 	}
     
     void SetGunLinePos()
     {
         gunLine.SetPosition(0, transform.position);
     }
-    
+    void ReloadAnimation()
+    {
+        if (reloading == false)
+        {
+            kickBack.ReloadAnimation();
+            StartCoroutine(Reload());
+            reloading = true;
+        }
+    }
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(1.35f);
+        ammo = 20;
+        reloading = false;
+    }
 }
