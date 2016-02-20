@@ -6,11 +6,10 @@ public class Enemy : MonoBehaviour
 
 	public int health = 100;
 	public GameObject deathParticles;
-
-    GameObject head;
+    
 	// Use this for initialization
 	void Start () {
-        head = GetComponent<GameObject>();
+
 	}
 	
 	// Update is called once per frame

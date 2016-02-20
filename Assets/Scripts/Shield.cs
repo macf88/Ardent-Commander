@@ -41,6 +41,10 @@ public class Shield : MonoBehaviour {
         {
             shieldActive = false;
         }
+        else
+        {
+            shieldActive = true;
+        }
         if (fade == true)
         {
             if (colorLerp > .5f)

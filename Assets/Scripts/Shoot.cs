@@ -5,18 +5,21 @@ public class Shoot : MonoBehaviour {
 	
 	Transform cam;
 	public int damageInflicted = 10;
-	public float timeBetweenBullets = 0.15f;        // The time between each shot.
+	public float timeBetweenBullets = 0.2f;        // The time between each shot.
 	public float range = 100f;                      // The distance the gun can fire.
     public float grappleBuffer;
-
+    public GameObject Model;
+    
+    KickBack kickBack;
     Grapple grappleScript;
     RaycastHit hit;
+    bool firingEffectsActive;
     bool grappleButtonHeld = false;
     bool grappleActive;
     Vector3 grapplePoint;
     Vector3 grapplePointBuffer;
-	int shootableMask;
-	float timer;                                    // A timer to determine when to fire.     
+	int shootableMask;    
+    float timer;                                    // A timer to determine when to fire.     
 	LineRenderer gunLine;                           // Reference to the line renderer.
 	AudioSource gunAudio;                           // Reference to the audio source.
 	Light gunLight;                                 // Reference to the light component.
@@ -30,6 +33,7 @@ public class Shoot : MonoBehaviour {
 		gunLine = GetComponentInChildren <LineRenderer> ();
 		gunAudio = GetComponent<AudioSource> ();
 		gunLight = GetComponent<Light> ();
+        kickBack = GetComponentInParent<KickBack>();
 	}
 	
 	// Update is called once per frame
@@ -38,6 +42,10 @@ public class Shoot : MonoBehaviour {
         // Add the time since Update was last called to the timer.
         timer += Time.deltaTime;
 
+        if (firingEffectsActive == true)
+        {
+            SetGunLinePos();
+        }
         if (Input.GetKey(KeyCode.Mouse3))
         {
             grappleButtonHeld = true;
@@ -113,6 +121,8 @@ public class Shoot : MonoBehaviour {
 		// Disable the line renderer and the light.
 		gunLine.enabled = false;
 		gunLight.enabled = false;
+        firingEffectsActive = false;
+
 	}
 
 	void Fire ()
@@ -120,6 +130,8 @@ public class Shoot : MonoBehaviour {
 
 		// Reset the timer.
 		timer = 0f;
+
+        kickBack.KickAnimation();
 
 		// Play the gun shot audioclip.
 		gunAudio.Play ();
@@ -129,9 +141,11 @@ public class Shoot : MonoBehaviour {
 
 		// Enable the line renderer and set it's first position to be the end of the gun.
 		gunLine.enabled = true;
-		gunLine.SetPosition (0, transform.position);
 
-		cam = Camera.main.transform;
+        firingEffectsActive = true;
+
+        gunLine.SetPosition(0, transform.position);
+        cam = Camera.main.transform;
 		Ray ray = new Ray(cam.position, cam.forward);
 		ray.origin = cam.transform.position;
 		ray.direction = cam.transform.forward;
@@ -150,5 +164,10 @@ public class Shoot : MonoBehaviour {
 			gunLine.SetPosition (1, ray.origin + ray.direction * range);
 		}
 	}
+    
+    void SetGunLinePos()
+    {
+        gunLine.SetPosition(0, transform.position);
+    }
     
 }

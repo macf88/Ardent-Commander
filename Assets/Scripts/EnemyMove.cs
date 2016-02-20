@@ -48,12 +48,20 @@ public class EnemyMove : MonoBehaviour {
         {
             if (Vector3.Distance(transform.position, closestPlayerAlly.transform.position) <= stoppingDistance)
             {
-                mesh.enabled = false;
+                StopMoving(alreadySet);
             }else {
-                mesh.enabled = true;
+                alreadySet = true;
                 mesh.SetDestination(closestPlayerAlly.transform.position);
 
             }
         }
 	}
+    void StopMoving(bool set)
+    {
+        if (set == true)
+        {
+            mesh.SetDestination(transform.position);
+            alreadySet = false;
+        }
+    }
 }
