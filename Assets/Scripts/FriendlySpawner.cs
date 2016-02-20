@@ -5,6 +5,7 @@ public class FriendlySpawner : MonoBehaviour {
 
     public bool spawnerActive = true;
     public GameObject friendly;
+    public GameObject guardianFriendly;
     public float spawnTime = 15;
 
     int randomFriendly;
@@ -33,6 +34,8 @@ public class FriendlySpawner : MonoBehaviour {
         {
             case 1:
             case 2:
+                Instantiate(guardianFriendly, transform.position, transform.rotation);
+                break;
             case 3:
             case 4:
             case 5:

@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public bool spawnerActive = true;
     public GameObject enemy;
+    public GameObject largeEnemy;
     public float spawnTime = 5;
 
     int randomEnemy;
@@ -33,22 +34,23 @@ public class EnemySpawner : MonoBehaviour {
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
-                Instantiate(enemy, transform.position, transform.rotation);
-                Instantiate(enemy, transform.position, transform.rotation);
+                Instantiate(largeEnemy, transform.position, transform.rotation);
                 break;
             case 2:
             case 3:
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
-                Instantiate(enemy, transform.position, transform.rotation);
+                Instantiate(largeEnemy, transform.position, transform.rotation);
                 break;
             case 4:
-            case 5:
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 Instantiate(enemy, transform.position, transform.rotation);
                 break;
+            case 5:
+                Instantiate(largeEnemy, transform.position, transform.rotation);
+                break;                
             case 6:
             case 7:
                 Instantiate(enemy, transform.position, transform.rotation);
