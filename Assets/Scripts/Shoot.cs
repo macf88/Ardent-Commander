@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour {
 	
@@ -10,6 +11,7 @@ public class Shoot : MonoBehaviour {
     public float grappleBuffer;
     public GameObject Model;
     public int ammo = 20;
+    public Slider ammoDisplay;
     
     KickBack kickBack;
     bool reloading;
@@ -174,6 +176,7 @@ public class Shoot : MonoBehaviour {
 			gunLine.SetPosition (1, ray.origin + ray.direction * range);
 		}
         ammo--;
+        ammoDisplay.value = ammo;
 	}
     
     void SetGunLinePos()
@@ -193,6 +196,7 @@ public class Shoot : MonoBehaviour {
     {
         yield return new WaitForSeconds(1.35f);
         ammo = 20;
+        ammoDisplay.value = ammo;
         reloading = false;
     }
 }
