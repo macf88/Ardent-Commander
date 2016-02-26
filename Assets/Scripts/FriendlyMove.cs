@@ -20,13 +20,7 @@ public class FriendlyMove : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (closestEnemy != null)
-        {
-            if (closestEnemy.GetComponent<Enemy>().health >= 0)
-            {
-                closestEnemy = null;
-            }
-        }
+        
         allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (allEnemies.Length > 0)
         {

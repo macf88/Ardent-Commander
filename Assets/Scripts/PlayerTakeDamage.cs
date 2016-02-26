@@ -20,7 +20,8 @@ public class PlayerTakeDamage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (health <= 0) 
+        TakeDamage(0);
+        if (health <= 0) 
 		{
 			rigidBody.constraints = RigidbodyConstraints.None;
 		}
@@ -40,5 +41,5 @@ public class PlayerTakeDamage : MonoBehaviour {
         }
         healthSlider.value = health;
         shieldSlider.value = shieldHealth;
-	}
+    }
 }

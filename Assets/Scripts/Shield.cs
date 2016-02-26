@@ -9,6 +9,7 @@ public class Shield : MonoBehaviour {
     [HideInInspector] public bool shieldActive = true;
 
     Renderer shieldRenderer;
+    int shieldMax;
     float colorLerp = 1.0f;
     float timer;
     float shieldTimer;
@@ -21,6 +22,7 @@ public class Shield : MonoBehaviour {
 	void Start () {
         shieldRenderer = gameObject.GetComponent<Renderer>();
         shieldRenderer.material = shieldOff;
+        shieldMax = shieldHealth;
 
     }
 	
@@ -73,21 +75,29 @@ public class Shield : MonoBehaviour {
         shieldRenderer.material = shieldOn;
         colorLerp = 1.0f;
         notInCombat = false;
-        timer = 0;
+        if (damage != 0)
+        {
+            timer = 0;
+        }
         shieldHealth -= damage;
     }
     public int ShieldTakeDamage(int damage, bool happiness)
     {
-        fade = true;
-        shieldRenderer.material = shieldOn;
-        colorLerp = 1.0f;
-        notInCombat = false;
-        timer = 0;
+
+        if (damage != 0)
+        {
+            timer = 0;
+            fade = true;
+            shieldRenderer.material = shieldOn;
+            colorLerp = 1.0f;
+            notInCombat = false;
+        }
         shieldHealth -= damage;
         return shieldHealth;
     }
     void ShieldRecharge()
     {
+        if (shieldHealth < shieldMax)
         shieldHealth += 1;
     }
 }

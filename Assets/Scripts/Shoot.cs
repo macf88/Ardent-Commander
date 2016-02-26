@@ -20,6 +20,7 @@ public class Shoot : MonoBehaviour {
     bool firingEffectsActive;
     bool grappleButtonHeld = false;
     bool grappleActive;
+    bool Zoommed;
     Vector3 grapplePoint;
     Vector3 grapplePointBuffer;
 	int shootableMask;    
@@ -111,6 +112,7 @@ public class Shoot : MonoBehaviour {
             timeBetweenBullets = 1f;
             damageInflicted = 30;
             gunAudio.pitch = .35f;
+            Zoommed = true;
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
@@ -118,6 +120,7 @@ public class Shoot : MonoBehaviour {
             timeBetweenBullets = .15f;
             damageInflicted = 10;
             gunAudio.pitch = .95f;
+            Zoommed = false;
         }
 
 		// If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
@@ -175,7 +178,14 @@ public class Shoot : MonoBehaviour {
 		{
 			gunLine.SetPosition (1, ray.origin + ray.direction * range);
 		}
+        if (Zoommed == true)
+        {
+            ammo -= 4;
+        }
+        else
+        {
         ammo--;
+        }
         ammoDisplay.value = ammo;
 	}
     

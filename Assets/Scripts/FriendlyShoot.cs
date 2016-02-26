@@ -29,13 +29,7 @@ public class FriendlyShoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (closestEnemy != null)
-        {
-            if (closestEnemy.GetComponent<Enemy>().health <= 0)
-            {
-                closestEnemy = null;
-            }
-        }
+        
         
         AllEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (AllEnemies.Length > 0)
@@ -99,7 +93,7 @@ public class FriendlyShoot : MonoBehaviour {
         gunLine.enabled = true;
         gunLine.SetPosition(0, transform.position);
         RaycastHit hit;
-        if (Physics.Linecast(transform.position, hitPoint.transform.position, out hit))
+        if (Physics.Linecast(transform.position, hitPoint.transform.position, out hit/*, 8, QueryTriggerInteraction.Ignore*/))
         {
             gunLine.SetPosition(1, hit.point);
 
@@ -112,7 +106,6 @@ public class FriendlyShoot : MonoBehaviour {
             {
                 hit.transform.gameObject.SendMessage("TakeDamage", damageInflicted, SendMessageOptions.DontRequireReceiver);
             }
-            print(hit.transform.name);
         }
     }
 }
