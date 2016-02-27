@@ -12,7 +12,7 @@ public class EnemyShoot : MonoBehaviour
 	public GameObject hitPoint;
     public string target;
 
-
+    
     GameObject [] allPlayerAllies;
     GameObject closestPlayerAlly;
     float closestAllyDistance = 1000;
@@ -29,6 +29,7 @@ public class EnemyShoot : MonoBehaviour
         gunLine = GetComponent <LineRenderer> ();
 		gunAudio = GetComponent<AudioSource> ();
 		gunLight = GetComponent<Light> ();
+        CheckForClosestPlayerAlly();
 	}
 	
 	// Update is called once per frame
@@ -44,34 +45,12 @@ public class EnemyShoot : MonoBehaviour
                 }
             }
         }
-        allPlayerAllies = GameObject.FindGameObjectsWithTag("Friendly");
-        if (allPlayerAllies.Length > 0)
-        {
-            foreach (GameObject ally in allPlayerAllies)
-            {
-                if (closestPlayerAlly == null)
-                {
-                    closestAllyDistance = 1000;
-                }
-                if (allPlayerAllies.Length == 1)
-                {
-                    closestPlayerAlly = ally;
-                }
-                else
-                {
-                    float dist = Vector3.Distance(ally.transform.position, transform.position);
-                    if (dist < closestAllyDistance && dist < 100f)
-                    {
-                        closestPlayerAlly = ally;
-                        closestAllyDistance = dist;
-                    }
-                }
-            }
-        }
         timeBetweenBullets = Random.Range(timeBetweenBulletsMin, timeBetweenBulletsMax);
         timer += Time.deltaTime;
-        Debug.Log(closestPlayerAlly);
-
+        if(timer >= timeBetweenBullets - .1)
+        {
+            CheckForClosestPlayerAlly();
+        }
         if (timer >= timeBetweenBullets && closestPlayerAlly != null)
         {
             Fire();
@@ -80,6 +59,30 @@ public class EnemyShoot : MonoBehaviour
         {
             // ... disable the effects.
             DisableEffects();
+        }
+    }
+    void CheckForClosestPlayerAlly()
+    {
+        closestAllyDistance = 1000;
+        allPlayerAllies = GameObject.FindGameObjectsWithTag("Friendly");
+        if (allPlayerAllies.Length > 0)
+        {
+            foreach (GameObject ally in allPlayerAllies)
+            {
+                if (allPlayerAllies.Length == 1)
+                {
+                    closestPlayerAlly = ally;
+                }
+                else
+                {
+                    float dist = Vector3.Distance(ally.transform.position, transform.position);
+                    if (dist <= closestAllyDistance && dist < 100f)
+                    {
+                        closestPlayerAlly = ally;
+                        closestAllyDistance = dist;
+                    }
+                }
+            }
         }
     }
 	public void DisableEffects ()
@@ -120,5 +123,6 @@ public class EnemyShoot : MonoBehaviour
             }
             print(hit.transform.name);
         }
+        CheckForClosestPlayerAlly();
     }
 }

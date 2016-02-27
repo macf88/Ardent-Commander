@@ -10,6 +10,7 @@ public class FriendlyMove : MonoBehaviour {
     NavMeshAgent mesh;
     bool alreadySet;
 
+
     // Use this for initialization
     void Start()
     {
@@ -33,7 +34,7 @@ public class FriendlyMove : MonoBehaviour {
                 else
                 {
                     float dist = Vector3.Distance(enemy.transform.position, transform.position);
-                    if (dist < closestEnemyDistance)
+                    if (dist <= closestEnemyDistance)
                     {
                         closestEnemy = enemy;
                         closestEnemyDistance = dist;

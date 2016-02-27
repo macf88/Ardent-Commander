@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 
 	public int health = 100;
 	public GameObject deathParticles;
+    bool AlreadySent;
     
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,12 @@ public class Enemy : MonoBehaviour
 		if (health <= 0) 
 		{
 			Instantiate (deathParticles, transform.position, transform.rotation);
+            if (AlreadySent == true)
+            {
+                SendDeathInfo();
+                AlreadySent = true;
+            }
+            
 			Destroy (gameObject);
 		}
 	}
@@ -25,4 +32,11 @@ public class Enemy : MonoBehaviour
 		health = health - damage;
 		print (health);
 	}
+    void SendDeathInfo()
+    {
+        foreach (GameObject Friendly in GameObject.FindGameObjectsWithTag("Friendly"))
+        {
+            Friendly.GetComponent<FriendlyShoot>().CheckForClosestEnemy();
+        }
+    }
 }

@@ -16,7 +16,7 @@ public class FriendlyShoot : MonoBehaviour {
     AudioSource gunAudio;                           // Reference to the audio source.
     Light gunLight;                                 // Reference to the light component.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
-
+    float dist;
     GameObject [] AllEnemies;
     GameObject closestEnemy;
     float closestEnemyDistance = 1000f;
@@ -25,35 +25,17 @@ public class FriendlyShoot : MonoBehaviour {
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
+        CheckForClosestEnemy();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
-        
-        AllEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (AllEnemies.Length > 0)
-        {
-        foreach (GameObject Enemy in AllEnemies)
-        {
-            if (AllEnemies.Length == 1)
-            {
-                closestEnemy = Enemy;
-            }
-            else
-            {
-                float dist = Vector3.Distance(Enemy.transform.position, transform.position);
-                if (dist < closestEnemyDistance && dist < 100f)
-                {
-                    closestEnemy = Enemy;
-                    closestEnemyDistance = dist;
-                }
-            }
-        }
-        }
         timeBetweenBullets = Random.Range(timeBetweenBulletsMin, timeBetweenBulletsMax);
         timer += Time.deltaTime;
-
+        if (timer >= timeBetweenBullets - .1)
+        {
+            CheckForClosestEnemy();
+        }
         if (timer >= timeBetweenBullets && closestEnemy != null)
         {
             Fire();
@@ -66,6 +48,33 @@ public class FriendlyShoot : MonoBehaviour {
             DisableEffects();
         }
     }
+    public void CheckForClosestEnemy()
+    {
+        closestEnemy = null;
+        closestEnemyDistance = 1000f;
+        AllEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (AllEnemies.Length > 0)
+        {
+            foreach (GameObject Enemy in AllEnemies)
+            {
+                //if (AllEnemies.Length == 1)
+                //{
+                //    closestEnemy = Enemy;
+                //    dist = Vector3.Distance(Enemy.transform.position, transform.position);
+                //}
+                //else
+                //{
+                    dist = Vector3.Distance(Enemy.transform.position, transform.position);
+                    if (dist < closestEnemyDistance && dist < 100f)
+                    {
+                        closestEnemy = Enemy;
+                        closestEnemyDistance = dist;
+                    }
+                //}
+            }
+        }
+        Debug.Log(closestEnemy);
+    }
     public void DisableEffects()
     {
         // Disable the line renderer and the light.
@@ -76,7 +85,7 @@ public class FriendlyShoot : MonoBehaviour {
     {
         // Reset the timer.
         timer = 0f;
-
+        Debug.Log("friendly Fired");
         distance = Vector3.Distance(hitPoint.transform.position, transform.position);
         if (closestEnemy != null)
         {
@@ -107,5 +116,6 @@ public class FriendlyShoot : MonoBehaviour {
                 hit.transform.gameObject.SendMessage("TakeDamage", damageInflicted, SendMessageOptions.DontRequireReceiver);
             }
         }
+        CheckForClosestEnemy();
     }
 }

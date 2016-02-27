@@ -35,7 +35,7 @@ public class EnemyMove : MonoBehaviour {
                 else
                 {
                     float dist = Vector3.Distance(ally.transform.position, transform.position);
-                    if (dist < closestAllyDistance)
+                    if (dist <= closestAllyDistance)
                     {
                         closestPlayerAlly = ally;
                         closestAllyDistance = dist;
@@ -43,7 +43,6 @@ public class EnemyMove : MonoBehaviour {
                 }
             }
         }
-        Debug.Log(closestPlayerAlly);
         if (closestPlayerAlly != null)
         {
             if (Vector3.Distance(transform.position, closestPlayerAlly.transform.position) <= stoppingDistance)
