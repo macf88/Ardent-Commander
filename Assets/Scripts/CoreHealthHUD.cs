@@ -2,13 +2,15 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class CoreHeathHUD : MonoBehaviour {
+public class CoreHealthHUD : MonoBehaviour {
     public Slider healthHUDSlider;
     public Text victoryText;
 
     Enemy enemyScript;
     Friendly friendlyScript;
     bool isFriendlyOrEnemy;
+    Vector3 pos;
+    Quaternion rot;
     
 	// Use this for initialization
 	void Start () {
@@ -22,11 +24,14 @@ public class CoreHeathHUD : MonoBehaviour {
             enemyScript = GetComponent<Enemy>();
             isFriendlyOrEnemy = false;
         }
-	    
+        pos = transform.position;
+        rot = transform.rotation;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        transform.position = pos;
+        transform.rotation = rot;
 	    if (isFriendlyOrEnemy == true)
         {
             if (friendlyScript.health <= 0)

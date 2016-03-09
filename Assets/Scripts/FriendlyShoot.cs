@@ -73,7 +73,6 @@ public class FriendlyShoot : MonoBehaviour {
                 //}
             }
         }
-        Debug.Log(closestEnemy);
     }
     public void DisableEffects()
     {
@@ -85,7 +84,6 @@ public class FriendlyShoot : MonoBehaviour {
     {
         // Reset the timer.
         timer = 0f;
-        Debug.Log("friendly Fired");
         distance = Vector3.Distance(hitPoint.transform.position, transform.position);
         if (closestEnemy != null)
         {

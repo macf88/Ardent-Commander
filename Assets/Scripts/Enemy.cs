@@ -27,10 +27,9 @@ public class Enemy : MonoBehaviour
 			Destroy (gameObject);
 		}
 	}
-	void TakeDamage(int damage)
+	public void TakeDamage(int damage)
 	{
 		health = health - damage;
-		print (health);
 	}
     void SendDeathInfo()
     {
